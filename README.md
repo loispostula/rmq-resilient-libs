@@ -48,3 +48,15 @@ To create a consumer, you need to provide:
  - `routing_keys`: List of routing keys that the queue should be bind to
  - `delay`: The time to wait before sending the `nack` when a message could 
  not be processed
+ 
+ Once created you can run it by doing:
+ 
+ ```
+ try:
+    consumer.run()
+ except KeyboardInterrupt:
+    consumer.stop()
+ ```
+ 
+ The `KeyboardInterrupt` catch is important if you want the consumer to close
+ cleanly all of his connection.
