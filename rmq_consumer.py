@@ -18,7 +18,7 @@ class RMQConsumer(object):
                  exchange_type='fanout',
                  queue={},
                  routing_keys=[],
-                 timeout=60
+                 delay=60
                  ):
         """
         Create a new instance of the consumer
@@ -33,7 +33,7 @@ class RMQConsumer(object):
         :param dict queue: Dict representing the queue
         :param list routing_keys: the routing keys to bind the queue to
         with the name of the queue, and the list of routing key to bind
-        :param int timeout: The time in seconds to wait between two
+        :param int delay: The time in seconds to wait between two
         nack
         """
         self.connection = None
@@ -48,7 +48,7 @@ class RMQConsumer(object):
         self.exchange_type = exchange_type
         self.queue = queue
         self.routing_keys = routing_keys
-        self.timeout = timeout
+        self.delay = delay
         self.binding_left = 0
 
     def connect(self):
@@ -96,7 +96,7 @@ class RMQConsumer(object):
         else:
             LOGGER.warning('Connection closed, reopening in 5 seconds: (%s) %s',
                            reply_code, reply_text)
-            self.connection.add_timeout(1, self.reconnect)
+            self.connection.add_timeout(5, self.reconnect)
 
     def reconnect(self):
         """Will be invoked by the IOLopp timer if the connection is
@@ -233,7 +233,7 @@ class RMQConsumer(object):
         else:
             LOGGER.info('NACKing message %s and sleeping',
                         basic_deliver.delivery_tag)
-            time.sleep(self.timeout)
+            time.sleep(self.delay)
             self.channel.basic_nack(
                 delivery_tag=basic_deliver.delivery_tag)
 
