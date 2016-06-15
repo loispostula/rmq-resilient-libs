@@ -60,3 +60,7 @@ To create a consumer, you need to provide:
  
  The `KeyboardInterrupt` catch is important if you want the consumer to close
  cleanly all of his connection.
+ 
+ ## Disclaimer
+ The consumer is mainly based on:
+ http://pika.readthedocs.io/en/0.10.0/examples/asynchronous_consumer_example.html
