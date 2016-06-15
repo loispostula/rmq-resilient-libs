@@ -33,6 +33,7 @@ To create a consumer, you need to provide:
  - `exchange_type`: The type of the exchange
  - `queue`: Dict representing the queue, only the name is compulsory 
  and the structure is as follow
+ 
  ```
  {
     'name': '',
