@@ -110,7 +110,7 @@ class RMQConsumer(object):
         invoked"""
         LOGGER.info('Creating a new channel')
         self.connection.channel(on_open_callback=self.on_channel_open,
-                                on_close_callback=self.on_channel_close)
+                                on_close_callback=self.on_channel_closed)
 
     def on_channel_open(self, channel):
         """This method is invoked by pika when the channel has been
