@@ -118,7 +118,7 @@ class RMQConsumer(object):
         it"""
         LOGGER.info('Channel opened')
         self.channel = channel
-        self.channel.add_on_close_channel(self.on_channel_closed())
+        self.channel.add_on_close_callback(self.on_channel_closed())
         self.setup_exchange(self.exchange)
 
     def on_channel_closed(self, channel, reply_code, reply_text):
