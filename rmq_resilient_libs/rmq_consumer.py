@@ -191,6 +191,8 @@ class RMQConsumer(object):
         LOGGER.info('Issuing consumer related commands')
         # Add a callback to permit to close cleanly the consumer
         self.channel.add_on_cancel_callback(self.on_consumer_cancelled)
+        # Add a prefetch value to be able to run multiple zip_push instance
+        self.channel.basic_qos(prefetch_count=1)
         self.consumer_tag = self.channel.basic_consume(self.on_message,
                                                        self.queue['name'])
 
